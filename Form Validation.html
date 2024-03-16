@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Form Validation</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            margin: 0;
+            padding: 0;
+        }
+
+        .container {
+            max-width: 600px;
+            margin: 50px auto;
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+
+        .error {
+            color: red;
+        }
+
+        .success {
+            color: green;
+        }
+
+        #welcomeMessage {
+            display: none;
+            color: green;
+            font-weight: bold;
+            margin-top: 20px;
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h2 style="text-align: center;">Form Validation</h2>
+        <form id="myForm">
+            <center>
+            <label for="name">Name:</label><br>
+            <input type="text" id="name" name="name"><br>
+            <span id="nameError" class="error"></span><br>
+
+            <label for="email">Email:</label><br>
+            <input type="email" id="email" name="email"><br>
+            <span id="emailError" class="error"></span><br>
+
+            <label for="password">Password:</label><br>
+            <input type="password" id="password" name="password"><br>
+            <span id="passwordError" class="error"></span><br>
+
+            <input type="button" value="Submit" onclick="validateForm()">
+            </center>
+        </form>
+
+        <div id="welcomeMessage">
+            Welcome to Ganesh Educational Academy!
+        </div>
+    </div>
+
+    <script>
+        function validateForm() {
+            var name = document.getElementById("name").value;
+            var email = document.getElementById("email").value;
+            var password = document.getElementById("password").value;
+
+            var nameError = document.getElementById("nameError");
+            var emailError = document.getElementById("emailError");
+            var passwordError = document.getElementById("passwordError");
+
+            var welcomeMessage = document.getElementById("welcomeMessage");
+
+            var isValid = true;
+
+            // Name validation
+            if (name.trim() === "") {
+                nameError.textContent = "Name is required";
+                isValid = false;
+            } else {
+                nameError.textContent = "";
+            }
+
+            // Email validation
+            if (email.trim() === "") {
+                emailError.textContent = "Email is required";
+                isValid = false;
+            } else if (!isValidEmail(email)) {
+                emailError.textContent = "Invalid email format";
+                isValid = false;
+            } else {
+                emailError.textContent = "";
+            }
+
+            // Password validation
+            if (password.trim() === "") {
+                passwordError.textContent = "Password is required";
+                isValid = false;
+            } else if (password.length < 6) {
+                passwordError.textContent = "Password must be at least 6 characters long";
+                isValid = false;
+            } else {
+                passwordError.textContent = "";
+            }
+
+            if (isValid) {
+                welcomeMessage.style.display = "block";
+            }
+
+            // Prevent form submission
+            return false;
+        }
+
+        function isValidEmail(email) {
+            // Basic email validation
+            var re = /\S+@\S+\.\S+/;
+            return re.test(email);
+        }
+    </script>
+</body>
+</html>
